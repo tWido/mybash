@@ -1,0 +1,81 @@
+
+## History settings
+
+# ignore duplicate lines
+HISTCONTROL=ignoredups
+
+# append to the history file, don't overwrite it
+shopt -s histappend
+
+HISTSIZE=1000
+HISTFILESIZE=20000
+HISTTIMEFORMAT="%F %T  "
+
+# allow ctrl-S / ctrl-R for history search
+stty -ixon
+
+
+## Bash settings
+
+# ignore case for auto-completion
+bind "set completion-ignore-case on"
+
+# colored man pages
+export LESS_TERMCAP_mb=$(tput bold; tput setaf 6) # cyan
+export LESS_TERMCAP_md=$(tput bold; tput setaf 3) # yellow
+export LESS_TERMCAP_me=$(tput sgr0)
+export LESS_TERMCAP_so=$(tput bold; tput setaf 3; tput setab 4) # yellow on blue
+export LESS_TERMCAP_se=$(tput rmso; tput sgr0)
+export LESS_TERMCAP_us=$(tput smul; tput bold; tput setaf 4) # blue
+export LESS_TERMCAP_ue=$(tput rmul; tput sgr0)
+export LESS_TERMCAP_mr=$(tput rev)
+export LESS_TERMCAP_mh=$(tput dim)
+export LESS_TERMCAP_ZN=$(tput ssubm)
+export LESS_TERMCAP_ZV=$(tput rsubm)
+export LESS_TERMCAP_ZO=$(tput ssupm)
+export LESS_TERMCAP_ZW=$(tput rsupm)
+export GROFF_NO_SGR=1
+
+# Automatical ls after each cd
+cd ()
+{
+	if [ -n "$1" ]; then
+		builtin cd "$@" && ls
+	else
+		builtin cd ~ && ls
+	fi
+}
+
+# Bind Ctrl+f to run 'zi'
+bind '"\C-f":"zi\n"'
+
+
+## Aliases
+
+alias cp='cp -i'
+alias mv='mv -i'
+alias rm='trash -v'
+alias rmf='rm'
+alias psa='ps auxf'
+
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+
+alias ll='ls -lh'
+
+alias hs='history | grep'
+alias pss='ps aux | grep'
+
+alias dus='du -S | sort -n -r | head'
+alias duh='du -h --max-depth=1'
+alias df='df -hT'
+
+alias cat='bat'
+alias rcat='cat'
+
+
+## Eval zoxide and starship
+
+eval "$(zoxide init bash)"
+eval "$(starship init bash)"
