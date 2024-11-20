@@ -37,7 +37,7 @@ disabled = false
 truncate_to_repo=false
 truncation_length = 0
 truncation_symbol = '…/'
-style = "fg:bold blue bg:#2c334a"
+style = "fg:bold #1d99f3 bg:#2c334a"
 format = "[$path]($style)"
 
 [git_branch]
