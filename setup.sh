@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-UTILS="bash-completion vim curl bat file ripgrep mc ranger zoxide fzf trash-cli unp fd-find jq starship unzip build-essential gcc cmake git golang"
+UTILS="bash-completion vim curl bat file ripgrep mc ranger zoxide fzf trash-cli unp fd-find jq unzip build-essential gcc cmake git golang"
 WIRESHARK=1
 RUST="net" # options: deb, net, none
 YAZI=1
@@ -30,19 +30,19 @@ install_nerdfont () {
     mv "${tmp}"/*.ttf "${HOME}/.fonts/Hack"
     fc-cache -fv
 
-    echo "${GREEN}Nerd font installed${RC}"
+    echo -e "${GREEN}Nerd font installed${RC}"
 }
 
 install_packages () {
     echo "Install required packages: ${UTILS}"
-    sudo apt-get -y install ${UTILS}
+    sudo apt-get install -y ${UTILS}
 
     if [[ ${WIRESHARK} -eq 1 ]]; then
         echo "Install Wireshark"
-        sudo apt-get -y install wireshark
+        sudo apt-get install -y wireshark
     fi
 
-    echo "${GREEN}All packages succesfully installed${RC}"
+    echo -e "${GREEN}All packages succesfully installed${RC}"
 }
 
 install_rust () {
@@ -54,19 +54,29 @@ install_rust () {
             deb)
                 echo "Installing Rust"
                 sudo apt-get -y install cargo rustc
-                echo "${GREEN}Rust succesfully installed${RC}"
+                echo -e "${GREEN}Rust succesfully installed${RC}"
                 ;;
             net)
                 echo "Installing Rust from official page"
                 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-                echo "${GREEN}Rust succesfully installed${RC}"
+                echo -e "${GREEN}Rust succesfully installed${RC}"
                 ;;
             none)
                 ;;
             *)
-                echo "${RED}Unknown source for Rust installation${RC}"
+                echo -e "${RED}Unknown source for Rust installation${RC}"
                 ;;
     esac
+}
+
+install_starship () {
+    if is_installed starship; then
+        return
+    fi
+
+    echo "Installing starship"
+    cargo install --locked starship
+    echo -e "${GREEN}starhip succesfully installed${RC}"
 }
 
 install_yazi () {
@@ -77,7 +87,7 @@ install_yazi () {
     echo "Installing yazi"
 
     if ! is_installed cargo; then
-        echo "${RED}cargo required for yazi installation${RC}"
+        echo -e "${RED}cargo required for yazi installation${RC}"
         return
     fi
 
@@ -85,7 +95,7 @@ install_yazi () {
     sudo apt-get install ${YAZI_DEPS}
     cargo install --locked yazi-fm yazi-cli
 
-    echo "${GREEN}yazi succesfully installed${RC}"
+    echo -e "${GREEN}yazi succesfully installed${RC}"
 }
 
 add_mybashrc () {
@@ -97,6 +107,7 @@ add_mybashrc () {
 install_packages
 install_nerdfont
 install_rust
+install_starship
 install_yazi
 add_mybashrc
 
