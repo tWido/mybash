@@ -1,5 +1,6 @@
 format = """
 $character\
+$cmd_duration\
 [](#3B4252)\
 $username\
 [@](bg:#3B4252)\
