@@ -6,7 +6,7 @@ UTILS="bash-completion vim curl bat file ripgrep mc ranger zoxide fzf trash-cli 
 WIRESHARK=1
 RUST="net" # options: deb, net, none
 YAZI=1
-YAZI_DEPS="ffmpegthumbnailer 7zip jq poppler fd-find ripgrep fzf zoxide imagemagick xclip wl-clipboard"
+YAZI_DEPS="ffmpegthumbnailer 7zip jq poppler-utils fd-find ripgrep fzf zoxide imagemagick xclip wl-clipboard"
 
 RC='\033[0m'
 RED='\033[31m'
@@ -67,6 +67,8 @@ install_rust () {
                 echo -e "${RED}Unknown source for Rust installation${RC}"
                 ;;
     esac
+    
+    source ${HOME}/.bashrc
 }
 
 install_starship () {
@@ -100,8 +102,13 @@ install_yazi () {
 
 add_mybashrc () {
     local src=$(dirname $(realpath $0))
-    cp "${src}/mybashrc" "${HOME/.mybashrc}"
-    echo "source .mybashrc" >> "${HOME/.bashrc}"
+    cp "${src}/mybashrc" "${HOME}/.mybashrc"
+
+    if ! grep mybashrc "${HOME}/.bashrc"; then
+        echo "source \"${HOME}/.mybashrc\"" >> "${HOME}/.bashrc"
+    fi
+
+    cp "${src}/starship.toml" "${HOME}/.config"
 }
 
 install_packages

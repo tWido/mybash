@@ -71,8 +71,8 @@ alias dus='du -S | sort -n -r | head'
 alias duh='du -h --max-depth=1'
 alias df='df -hT'
 
-alias cat='bat'
-alias rcat='cat'
+alias cat='batcat'
+alias rcat='/usr/bin/cat'
 
 
 ## Eval zoxide and starship
