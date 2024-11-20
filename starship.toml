@@ -1,0 +1,45 @@
+format = """
+$character\
+[](#3B4252)\
+$username\
+[@](bg:#3B4252)\
+$hostname\
+[](fg:#3B4252 bg:#2c334a )\
+$directory\
+[](fg:#2c334a bg:#1d2230)\
+$git_branch\
+[](fg:#1d2230 bg:#3B4252)\
+[ ](fg:#3B4252)\
+"""
+
+[cmd_duration]
+min_time = 10_000  # Show command duration over 10,000 milliseconds (=10 sec)
+format = '\[[⏱ $duration]($style)\]'
+style = 'yellow'
+
+[character]
+success_symbol = "[✔](bold green)"
+error_symbol = "[✗](bold red)"
+
+[username]
+show_always = true
+style_user = "bg:#3B4252 fg:#1cdc9a bold"
+style_root = "bg:#3B4252 fg:#1cdc9a bold"
+format = '[$user]($style)'
+
+[hostname]
+ssh_only = false
+format = '[$ssh_symbol](bold red)[$hostname](bg:#3B4252 fg:bold #1cdc9a)(bg:#3B4252 fg:bold #1cdc9a)'
+trim_at = ''
+disabled = false
+
+[directory]
+truncate_to_repo=false
+truncation_length = 0
+truncation_symbol = '…/'
+style = "fg:bold blue bg:#2c334a"
+format = "[$path]($style)"
+
+[git_branch]
+format = '[ $symbol$branch]($style)'
+style = 'bg:#1d2230 fg:#769ff0'

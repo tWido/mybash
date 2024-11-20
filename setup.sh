@@ -18,16 +18,16 @@ is_installed () {
 }
 
 install_nerdfont () {
-    FONT_URL="https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip"
+    FONT_URL="https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Hack.zip"
 
     echo "Installing nerd font"
     local tmp=$(mktemp -d)
     trap "rm -rf ${tmp}" EXIT
 
-    wget -q --show-progress "${FONT_URL}" > "${tmp}/JetBrainsMono.zip"
-    unzip "${tmp}/JetBrainsMono.zip" -d "${tmp}"
-    mkdir -p "${HOME}/.fonts/JetBrainsMono"
-    mv "${tmp}"/*.ttf "${HOME}/.fonts/JetBrainsMono"
+    wget -q --show-progress "${FONT_URL}" -O "${tmp}/Hack.zip"
+    unzip "${tmp}/Hack.zip" -d "${tmp}"
+    mkdir -p "${HOME}/.fonts/Hack"
+    mv "${tmp}"/*.ttf "${HOME}/.fonts/Hack"
     fc-cache -fv
 
     echo "${GREEN}Nerd font installed${RC}"
