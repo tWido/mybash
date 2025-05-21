@@ -74,6 +74,10 @@ alias df='df -hT'
 alias cat='batcat'
 alias rcat='/usr/bin/cat'
 
+alias gits='git status'
+alias gitb='git branch'
+alias gitpm='git pull origin master --ff-only'
+
 
 ## Eval zoxide and starship
 
